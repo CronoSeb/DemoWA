@@ -261,7 +261,7 @@ async function askAI(userMsg){
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
         system: SYSTEM,
         messages: history
@@ -286,7 +286,7 @@ async function askAI(userMsg){
   } catch (e) {
     console.error(e);
     ty.remove();
-    addBotMsg('Un momento, ahora te ayudo! 🤔');
+    addBotMsg('Error: ' + e.message);
   } finally {
     waStatus.textContent = 'en línea';
     busy = false;

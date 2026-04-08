@@ -68,6 +68,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .intro p{font-size:14px;color:#667781;line-height:1.6;margin-bottom:.5rem;}
 .intro small{font-size:12px;color:#aaa;line-height:1.6;margin-bottom:1.5rem;display:block;}
 .intro-start{background:#25d366;color:#fff;border:none;border-radius:25px;padding:13px 32px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(37,211,102,.35);}
+.api-input{width:100%;border:1.5px solid #e0e0e0;border-radius:12px;padding:10px 14px;font-size:13px;font-family:inherit;color:#111;outline:none;margin-bottom:.75rem;letter-spacing:.04em;}
+.api-input:focus{border-color:#25d366;}
+.api-hint{font-size:11.5px;color:#aaa;margin-bottom:1.2rem;display:block;}
 
 .outside{text-align:center;padding:2rem 1rem 1rem;}
 .outside strong{color:rgba(255,255,255,.7);display:block;margin-bottom:.4rem;font-size:15px;}
@@ -99,6 +102,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
       <h2>My Xu Costura</h2>
       <p>Demo del asistente con Inteligencia Artificial real.</p>
       <small>Conversa libremente &mdash; la IA entiende cualquier pregunta sobre costura, precios, domicilios y m&aacute;s.</small>
+      <input class="api-input" id="apikey-input" type="password" placeholder="sk-ant-... (Anthropic API Key)" autocomplete="off" />
+      <span class="api-hint">La key se usa solo en esta sesi&oacute;n, nunca se guarda.</span>
       <button class="intro-start" onclick="startDemo()">Iniciar conversaci&oacute;n</button>
     </div>
 
@@ -153,6 +158,8 @@ var cinput = document.getElementById('cinput');
 var waStatus = document.getElementById('wa-status');
 var history = [];
 var busy = false;
+
+var API_KEY = '';
 
 var SYSTEM = `Eres la asistente virtual de My Xu Costura, un taller de costura artesanal en Sevilla (C. General Ollero, 9B, 41006 Sevilla).
 
@@ -249,12 +256,12 @@ async function askAI(userMsg){
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'TU_API_KEY',
+        'x-api-key': API_KEY,
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-5',
         max_tokens: 300,
         system: SYSTEM,
         messages: history
@@ -299,6 +306,13 @@ function sendUser(){
 }
 
 function startDemo(){
+  var key = document.getElementById('apikey-input').value.trim();
+  if(!key){
+    document.getElementById('apikey-input').style.borderColor='#e53935';
+    document.getElementById('apikey-input').placeholder='Ingresa tu API Key primero';
+    return;
+  }
+  API_KEY = key;
   document.getElementById('intro').style.display='none';
   var lbl=document.createElement('div');
   lbl.className='biz-label';

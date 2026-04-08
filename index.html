@@ -239,37 +239,51 @@ function addTyping(){
 }
 
 async function askAI(userMsg){
-  history.push({role:'user',content:userMsg});
-  var ty = addTyping();
-  waStatus.textContent='escribiendo\u2026';
-  busy=true;
-  try{
-    var res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{
-  'Content-Type':'application/json',
-  'x-api-key':'sk-ant-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',
-  'anthropic-version':'2023-06-01',
-  'anthropic-dangerous-direct-browser-access':'true'
-},'','anthropic-version':'2023-06-01'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:300,
-        system:SYSTEM,
-        messages:history
+  history.push({ role: 'user', content: userMsg });
+  const ty = addTyping();
+  waStatus.textContent = 'escribiendo…';
+  busy = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'TU_API_KEY',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: SYSTEM,
+        messages: history
       })
     });
-    var data = await res.json();
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Anthropic ${res.status}: ${errText}`);
+    }
+
+    const data = await res.json();
     ty.remove();
-    var reply = (data.content&&data.content[0]&&data.content[0].text) ? data.content[0].text : 'Un momento, ahora te ayudo!';
-    history.push({role:'assistant',content:reply});
+
+    const reply =
+      data?.content?.find(x => x.type === 'text')?.text ||
+      'Un momento, ahora te ayudo!';
+
+    history.push({ role: 'assistant', content: reply });
     addBotMsg(reply);
-  } catch(e){
+
+  } catch (e) {
+    console.error(e);
     ty.remove();
-    addBotMsg('Un momento, ahora te ayudo! \uD83E\uDD14');
+    addBotMsg('Un momento, ahora te ayudo! 🤔');
+  } finally {
+    waStatus.textContent = 'en línea';
+    busy = false;
   }
-  waStatus.textContent='en l\u00ednea';
-  busy=false;
 }
 
 function sendUser(){

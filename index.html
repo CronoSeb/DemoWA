@@ -3,110 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>My Xu Costura - Demo WhatsApp</title>
+<title>My Xu Costura - Demo WhatsApp IA</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#111;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#111;min-height:100vh;min-height:-webkit-fill-available;display:flex;align-items:center;justify-content:center;}
 
-/* PHONE FRAME */
-.phone{width:375px;height:760px;background:#000;border-radius:50px;box-shadow:0 0 0 10px #1a1a1a,0 0 0 12px #333,0 40px 80px rgba(0,0,0,.8);position:relative;overflow:hidden;}
+.phone{width:375px;height:760px;background:#000;border-radius:50px;box-shadow:0 0 0 10px #1a1a1a,0 0 0 12px #333,0 40px 80px rgba(0,0,0,.8);position:relative;overflow:hidden;flex-shrink:0;}
 .phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:30px;background:#000;border-radius:0 0 18px 18px;z-index:100;}
 .phone-screen{position:absolute;inset:0;border-radius:50px;overflow:hidden;display:flex;flex-direction:column;}
 
-/* STATUS BAR */
 .status-bar{background:#075e54;padding:12px 20px 6px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
 .status-time{color:#fff;font-size:14px;font-weight:600;}
-.status-icons{display:flex;gap:5px;align-items:center;}
-.status-icons svg{width:14px;height:14px;fill:#fff;}
-.status-bat{color:#fff;font-size:12px;font-weight:500;}
+.status-right{display:flex;gap:5px;align-items:center;color:#fff;font-size:12px;font-weight:500;}
 
-/* WA HEADER */
 .wa-header{background:#075e54;padding:8px 16px 10px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.back-btn{color:rgba(255,255,255,.7);font-size:22px;cursor:pointer;line-height:1;}
-.wa-avatar{width:38px;height:38px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
-.wa-avatar img{width:100%;height:100%;object-fit:cover;}
-.wa-avatar-txt{font-size:15px;font-weight:600;color:#fff;}
+.back-btn{color:rgba(255,255,255,.7);font-size:22px;line-height:1;}
+.wa-avatar{width:38px;height:38px;border-radius:50%;background:#128C7E;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:700;color:#fff;}
 .wa-info{flex:1;}
 .wa-name{color:#fff;font-size:15px;font-weight:600;line-height:1.2;}
-.wa-status{color:rgba(255,255,255,.7);font-size:12px;}
-.wa-icons{display:flex;gap:18px;}
-.wa-icons svg{width:22px;height:22px;fill:rgba(255,255,255,.85);}
+.wa-status{color:rgba(255,255,255,.75);font-size:12px;}
+.wa-icons{display:flex;gap:18px;opacity:.85;}
+.wa-icons svg{width:22px;height:22px;fill:#fff;}
 
-/* CHAT BG */
-.chat-bg{flex:1;overflow-y:auto;padding:8px 10px;background:#ece5dd;display:flex;flex-direction:column;gap:4px;scroll-behavior:smooth;}
+.chat-bg{flex:1;overflow-y:auto;padding:8px 10px;background:#ece5dd;display:flex;flex-direction:column;gap:4px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;}
 .chat-bg::-webkit-scrollbar{width:0;}
 
-/* DATE PILL */
-.date-pill{text-align:center;margin:6px 0;}
-.date-pill span{background:rgba(255,255,255,.75);color:#667781;font-size:11.5px;padding:4px 10px;border-radius:7px;box-shadow:0 1px 1px rgba(0,0,0,.08);}
+.date-pill{text-align:center;margin:4px 0;}
+.date-pill span{background:rgba(255,255,255,.75);color:#667781;font-size:11.5px;padding:4px 10px;border-radius:7px;}
 
-/* MESSAGES */
-.msg{display:flex;flex-direction:column;max-width:82%;}
+.msg{display:flex;flex-direction:column;max-width:80%;}
 .msg.bot{align-self:flex-start;}
 .msg.user{align-self:flex-end;}
-
-.bubble{padding:7px 10px 5px;border-radius:8px;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.12);}
+.bubble{padding:7px 10px 5px;border-radius:8px;box-shadow:0 1px 1px rgba(0,0,0,.1);}
 .msg.bot .bubble{background:#fff;border-radius:0 8px 8px 8px;}
 .msg.user .bubble{background:#dcf8c6;border-radius:8px 8px 0 8px;}
-
-.bubble-text{font-size:14px;color:#111;line-height:1.45;word-break:break-word;}
-.bubble-meta{display:flex;align-items:center;justify-content:flex-end;gap:3px;margin-top:2px;}
+.bubble-text{font-size:14px;color:#111;line-height:1.5;word-break:break-word;white-space:pre-wrap;}
+.bubble-meta{display:flex;align-items:center;justify-content:flex-end;gap:3px;margin-top:3px;}
 .bubble-time{font-size:11px;color:#667781;}
-.tick{width:15px;height:10px;}
-.tick-single path{fill:#667781;}
-.tick-blue path{fill:#53bdeb;}
 
-/* BUSINESS LABEL */
-.biz-label{background:#fff;border-radius:0 8px 8px 8px;padding:6px 10px;font-size:12px;color:#8696a0;display:flex;align-items:center;gap:5px;max-width:82%;box-shadow:0 1px 1px rgba(0,0,0,.1);}
-.biz-label svg{width:14px;height:14px;fill:#25d366;flex-shrink:0;}
+.biz-label{background:#fff;border-radius:0 8px 8px 8px;padding:6px 10px;font-size:12px;color:#8696a0;display:flex;align-items:center;gap:5px;max-width:80%;box-shadow:0 1px 1px rgba(0,0,0,.1);align-self:flex-start;}
 
-/* QUICK REPLY BUTTONS */
-.qr-wrap{display:flex;flex-wrap:wrap;gap:5px;max-width:82%;margin-top:2px;}
-.qr-btn{background:#fff;border:1px solid #d9fdd3;border-radius:20px;padding:7px 14px;font-size:13px;color:#007bff;cursor:pointer;font-family:inherit;transition:background .15s;box-shadow:0 1px 1px rgba(0,0,0,.08);}
-.qr-btn:hover{background:#f0f9ff;}
-.qr-btn:active{background:#e0f2fe;}
-
-/* TYPING */
-.typing-bubble{background:#fff;border-radius:0 8px 8px 8px;padding:10px 14px;box-shadow:0 1px 1px rgba(0,0,0,.12);align-self:flex-start;}
+.typing-bubble{background:#fff;border-radius:0 8px 8px 8px;padding:10px 14px;box-shadow:0 1px 1px rgba(0,0,0,.1);align-self:flex-start;}
 .typing-dots{display:flex;gap:4px;align-items:center;}
 .tdot{width:7px;height:7px;background:#8696a0;border-radius:50%;animation:td 1.2s infinite;}
-.tdot:nth-child(2){animation-delay:.2s}
-.tdot:nth-child(3){animation-delay:.4s}
-@keyframes td{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+@keyframes td{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
 
-/* INPUT BAR */
 .input-bar{background:#f0f2f5;padding:8px 10px;display:flex;align-items:flex-end;gap:8px;flex-shrink:0;}
 .input-wrap{flex:1;background:#fff;border-radius:22px;display:flex;align-items:center;padding:8px 14px;gap:8px;}
-.emoji-btn{font-size:20px;cursor:pointer;flex-shrink:0;}
-.chat-input{flex:1;border:none;outline:none;font-size:14px;font-family:inherit;color:#111;background:transparent;resize:none;max-height:80px;}
+.emoji-btn{font-size:20px;cursor:pointer;}
+.chat-input{flex:1;border:none;outline:none;font-size:14px;font-family:inherit;color:#111;background:transparent;resize:none;max-height:80px;line-height:1.4;}
 .chat-input::placeholder{color:#8696a0;}
-.attach-btn{font-size:18px;cursor:pointer;color:#8696a0;}
 .send-btn{width:44px;height:44px;border-radius:50%;background:#00a884;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
-.send-btn:hover{background:#008f6f;}
+.send-btn:active{background:#008f6f;}
 .send-btn svg{width:20px;height:20px;fill:#fff;margin-left:2px;}
 .mic-btn{width:44px;height:44px;border-radius:50%;background:#00a884;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .mic-btn svg{width:20px;height:20px;fill:#fff;}
 
-/* INTRO SCREEN */
+/* INTRO */
 .intro{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;z-index:50;border-radius:50px;}
 .intro-logo{width:80px;height:80px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 8px 24px rgba(37,211,102,.3);}
 .intro-logo svg{width:44px;height:44px;fill:#fff;}
 .intro h2{font-size:20px;font-weight:700;color:#111;margin-bottom:.5rem;}
-.intro p{font-size:14px;color:#667781;line-height:1.6;margin-bottom:2rem;}
-.intro-start{background:#25d366;color:#fff;border:none;border-radius:25px;padding:13px 32px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(37,211,102,.4);}
-.intro-start:active{transform:scale(.97);}
+.intro p{font-size:14px;color:#667781;line-height:1.6;margin-bottom:.5rem;}
+.intro small{font-size:12px;color:#aaa;line-height:1.6;margin-bottom:1.5rem;display:block;}
+.intro-start{background:#25d366;color:#fff;border:none;border-radius:25px;padding:13px 32px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(37,211,102,.35);}
 
-/* OUTSIDE LABEL */
 .outside{text-align:center;padding:2rem 1rem 1rem;}
-.outside p{color:rgba(255,255,255,.4);font-size:13px;line-height:1.6;}
 .outside strong{color:rgba(255,255,255,.7);display:block;margin-bottom:.4rem;font-size:15px;}
+.outside p{color:rgba(255,255,255,.35);font-size:13px;line-height:1.6;}
 
 @media(max-width:768px){
-  body{background:#ece5dd;align-items:flex-start;justify-content:flex-start;padding:0;margin:0;min-height:100vh;min-height:-webkit-fill-available;}
-  .phone{width:100%;height:100vh;height:-webkit-fill-available;border-radius:0;box-shadow:none;display:flex;flex-direction:column;}
+  body{background:#ece5dd;align-items:flex-start;justify-content:flex-start;}
+  #outer{display:block!important;width:100%;height:100vh;}
+  .phone{width:100%;height:100vh;height:-webkit-fill-available;border-radius:0;box-shadow:none;}
   .phone-notch{display:none;}
-  .phone-screen{border-radius:0;height:100%;display:flex;flex-direction:column;}
-  .chat-bg{flex:1;-webkit-overflow-scrolling:touch;}
+  .phone-screen{border-radius:0;}
   .intro{border-radius:0;}
   .outside{display:none;}
 }
@@ -120,30 +92,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   <div class="phone-notch"></div>
   <div class="phone-screen">
 
-    <!-- INTRO -->
     <div class="intro" id="intro">
       <div class="intro-logo">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </div>
       <h2>My Xu Costura</h2>
-      <p>As&iacute; ver&iacute;a tu cliente el chat de WhatsApp Business. Toca para ver la demo en vivo.</p>
-      <button class="intro-start" onclick="startDemo()">Ver demo del chat</button>
+      <p>Demo del asistente con Inteligencia Artificial real.</p>
+      <small>Conversa libremente &mdash; la IA entiende cualquier pregunta sobre costura, precios, domicilios y m&aacute;s.</small>
+      <button class="intro-start" onclick="startDemo()">Iniciar conversaci&oacute;n</button>
     </div>
 
-    <!-- STATUS BAR -->
     <div class="status-bar">
-      <span class="status-time">16:30</span>
-      <div class="status-icons">
-        <svg viewBox="0 0 24 24"><path d="M1.5 8.5C5.5 4.5 10 2.5 12 2.5s6.5 2 10.5 6L21 10c-3-3-5.5-4.5-9-4.5S6 7 3 10L1.5 8.5z"/><path d="M5 12c1.8-1.8 4-3 7-3s5.2 1.2 7 3L17.5 13.5C16 12 14 11 12 11s-4 1-5.5 2.5L5 12z"/><circle cx="12" cy="17" r="2"/></svg>
-        <svg viewBox="0 0 24 24"><rect x="1" y="6" width="4" height="12" rx="1"/><rect x="7" y="4" width="4" height="14" rx="1"/><rect x="13" y="2" width="4" height="16" rx="1"/><rect x="19" y="1" width="4" height="17" rx="1" opacity=".3"/></svg>
-        <span class="status-bat">67%</span>
-      </div>
+      <span class="status-time" id="clock">16:30</span>
+      <div class="status-right">&#128246; 5G 67%</div>
     </div>
 
-    <!-- WA HEADER -->
     <div class="wa-header">
       <div class="back-btn">&#8249;</div>
-      <div class="wa-avatar"><span class="wa-avatar-txt">MX</span></div>
+      <div class="wa-avatar">MX</div>
       <div class="wa-info">
         <div class="wa-name">My Xu Costura</div>
         <div class="wa-status" id="wa-status">Cuenta de empresa</div>
@@ -154,17 +120,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
       </div>
     </div>
 
-    <!-- CHAT -->
     <div class="chat-bg" id="chat">
       <div class="date-pill"><span>Hoy</span></div>
     </div>
 
-    <!-- INPUT -->
     <div class="input-bar">
       <div class="input-wrap">
         <span class="emoji-btn">&#128512;</span>
-        <input type="text" class="chat-input" id="cinput" placeholder="Mensaje" onkeydown="if(event.key==='Enter')sendUser()">
-        <span class="attach-btn">&#128206;</span>
+        <textarea class="chat-input" id="cinput" placeholder="Mensaje" rows="1" onkeydown="handleKey(event)" oninput="handleInput(this)"></textarea>
       </div>
       <button class="send-btn" id="sendbtn" onclick="sendUser()" style="display:none">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -178,8 +141,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 </div>
 
 <div class="outside">
-  <strong>Demo interactiva</strong>
-  <p>Escribe cualquier cosa o usa<br>los botones de respuesta r&aacute;pida</p>
+  <strong>Demo con IA real</strong>
+  <p>La IA entiende lenguaje natural.<br>Escribe cualquier cosa como si fuera WhatsApp.</p>
 </div>
 
 </div>
@@ -187,230 +150,145 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <script>
 var chat = document.getElementById('chat');
 var cinput = document.getElementById('cinput');
-var sendbtn = document.getElementById('sendbtn');
-var micbtn = document.getElementById('micbtn');
 var waStatus = document.getElementById('wa-status');
-var started = false;
+var history = [];
+var busy = false;
 
-cinput.addEventListener('input', function(){
-  if(cinput.value.trim()){sendbtn.style.display='flex';micbtn.style.display='none';}
-  else{sendbtn.style.display='none';micbtn.style.display='flex';}
-});
+var SYSTEM = `Eres la asistente virtual de My Xu Costura, un taller de costura artesanal en Sevilla (C. General Ollero, 9B, 41006 Sevilla).
 
-var FLOWS = {
-  'pantalon': [
-    {b:'Perfecto &#128509; &iquest;Qu&eacute; tipo de arreglo necesita el pantal&oacute;n?', d:1000},
-    {o:['Dobladillo','Cintura m&aacute;s estrecha','Cremallera rota','Rotura o desgarro']}
-  ],
-  'dobladillo': [
-    {b:'Entendido. &iquest;Solo el dobladillo o hay algo m&aacute;s que arreglar?', d:900},
-    {o:['Solo el dobladillo','Dobladillo + cremallera','Hay m&aacute;s cosas']}
-  ],
-  'dobladillo + cremallera': [
-    {b:'Anotado &#9999;&#65039; Dobladillo y cremallera.\n\n&iquest;Quieres que pasemos a recogerlo a domicilio o prefieres traerlo al taller?', d:1100},
-    {o:['&#128666; Recogida a domicilio','&#128205; Lo llevo al taller']}
-  ],
-  'recogida a domicilio': [
-    {b:'Genial! Recogemos en tu casa sin coste si el servicio supera 50&euro; &#127873;\n\n&iquest;Cu&aacute;l es tu direcci&oacute;n en Sevilla?', d:1000}
-  ],
-  'direccion': [
-    {b:'Perfecto, lo tengo anotado &#128205;\n\n&iquest;Cu&aacute;ndo te viene mejor que pasemos?', d:900},
-    {o:['Ma&ntilde;ana ma&ntilde;ana (10-14h)','Ma&ntilde;ana tarde (17:30-20:30)','Otro d&iacute;a']}
-  ],
-  'manana manana': [
-    {b:'Confirmado! &#10003;\n\nPasaremos ma&ntilde;ana por la ma&ntilde;ana entre 10:00 y 14:00.\n\nPresupuesto aproximado: *18&ndash;22&euro;*\nSi supera 50&euro; el domicilio es gratis &#127873;\n\nTe avisamos antes de llegar. &iquest;Tienes alguna pregunta m&aacute;s?', d:1400},
-    {o:['Todo perfecto, gracias!','&iquest;Cu&aacute;nto tarda el arreglo?']}
-  ],
-  'todo perfecto': [
-    {b:'Genial! Te esperamos ma&ntilde;ana &#129309;\nCualquier cosa estamos aqu&iacute;. &iexcl;Hasta pronto!', d:900}
-  ],
-  'cuanto tarda': [
-    {b:'Para arreglos sencillos como dobladillo o cremallera solemos tardar *24&ndash;48 horas* &#9200;\n\nTe avisamos por WhatsApp cuando est&eacute; listo para que vengas a buscarlo o te lo llevamos.', d:1100},
-    {o:['Perfecto, muchas gracias!','Quiero que lo entregu&eacute;is vosotros']}
-  ],
-  'cortinas': [
-    {b:'Claro, trabajamos todo tipo de cortinas &#127968;\n\n&iquest;Qu&eacute; necesitas?', d:900},
-    {o:['Acortar el largo','Arreglar dobladillo','Cambiar las anillas','Otra cosa']}
-  ],
-  'medida': [
-    {b:'Nos encanta hacer dise&ntilde;os exclusivos &#9997;&#65039;\n\n&iquest;Tienes ya alguna idea o referencia de lo que buscas?', d:1000},
-    {o:['Tengo foto de referencia','Solo tengo la idea','Prefiero venir al taller']}
-  ],
-  'cremallera': [
-    {b:'Un arreglo de cremallera suele estar entre *10 y 18&euro;* seg&uacute;n la prenda &#129532;\n\n&iquest;Es para qu&eacute; tipo de prenda?', d:1000},
-    {o:['Pantal&oacute;n','Chaqueta','Bolso','Otro']}
-  ],
-  'lo llevo al taller': [
-    {b:'&#128205; Estamos en:\n*C. General Ollero, 9B*\n41006 Sevilla\n\nHorario:\nL&ndash;V: 10:00&ndash;14:00 / 17:30&ndash;20:30\nS&aacute;bados: 10:00&ndash;14:00\n\nTe esperamos! &#129309;', d:1200}
-  ],
-  'default': [
-    {b:'Entendido &#128076; &iquest;Puedo ayudarte con algo m&aacute;s o quieres que gestionemos la recogida a domicilio?', d:900},
-    {o:['&#128666; Recogida a domicilio','Precio cremallera','Dise&ntilde;o a medida']}
-  ]
-};
+Tu personalidad: cercana, profesional, eficiente. Escribes como se escribe en WhatsApp: mensajes cortos, naturales, sin formalismos exagerados. Usas algun emoji ocasionalmente pero sin exagerar.
 
-var WELCOME = [
-  {b:'&#128075; &iexcl;Hola! Soy la asistente de *My Xu Costura*.\n\n&iquest;En qu&eacute; puedo ayudarte hoy?', d:800},
-  {o:['Arreglar un pantal&oacute;n','Arreglar cortinas','Dise&ntilde;o a medida','Precio cremallera']}
-];
+Servicios y precios orientativos:
+- Dobladillo: desde 8€
+- Cremallera: 10-18€ segun prenda
+- Cintura: 12-20€
+- Arreglos generales: desde 8€
+- Arreglo de cortinas: desde 15€
+- Diseño a medida: desde 45€
+- Ropa de novia/gala: consultar
+- Uniformes corporativos: desde 12€
+- Textil hogar: desde 20€
 
-function norm(s){
-  return s.toLowerCase()
-    .replace(/&aacute;/g,'a').replace(/&eacute;/g,'e').replace(/&iacute;/g,'i').replace(/&oacute;/g,'o').replace(/&uacute;/g,'u')
-    .replace(/&ntilde;/g,'n').replace(/&#[0-9]+;/g,'').replace(/&[a-z]+;/g,'')
-    .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u')
-    .replace(/ñ/g,'n').replace(/[^a-z0-9 ]/g,'').trim();
-}
+Domicilio: recogemos a domicilio en Sevilla. GRATIS si el servicio supera 50€. Si no llega a 50€ hay un pequeño coste de desplazamiento.
 
-function getFlow(key){
-  var k = norm(key);
-  if(k.indexOf('pantalon')>=0) return FLOWS['pantalon'];
-  if(k.indexOf('dobladillo')>=0 && (k.indexOf('cremallera')>=0||k.indexOf('mas')>=0||k.indexOf('+')>=0)) return FLOWS['dobladillo + cremallera'];
-  if(k.indexOf('dobladillo')>=0) return FLOWS['dobladillo'];
-  if(k.indexOf('recogida')>=0||k.indexOf('domicilio')>=0) return FLOWS['recogida a domicilio'];
-  if(k.indexOf('manana')>=0||k.indexOf('manana manana')>=0||k.indexOf('10')>=0) return FLOWS['manana manana'];
-  if(k.indexOf('cortina')>=0) return FLOWS['cortinas'];
-  if(k.indexOf('medida')>=0||k.indexOf('diseno')>=0) return FLOWS['medida'];
-  if(k.indexOf('cremallera')>=0||k.indexOf('precio')>=0) return FLOWS['cremallera'];
-  if(k.indexOf('taller')>=0||k.indexOf('llevo')>=0) return FLOWS['lo llevo al taller'];
-  if(k.indexOf('tarda')>=0||k.indexOf('tiempo')>=0||k.indexOf('cuanto')>=0) return FLOWS['cuanto tarda'];
-  if(k.indexOf('perfecto')>=0||k.indexOf('gracias')>=0||k.indexOf('genial')>=0) return FLOWS['todo perfecto'];
-  if(k.indexOf('calle')>=0||k.indexOf('avenida')>=0||k.indexOf('sevilla')>=0||k.length>8) return FLOWS['direccion'];
-  return FLOWS['default'];
-}
+Horario tienda: L-V 10:00-14:00 y 17:30-20:30. Sabados 10:00-14:00.
+Chat/pedidos: disponible 24h.
+
+Cuando el cliente quiere hacer un pedido a domicilio, pide: 1) direccion, 2) horario preferido, 3) descripcion de la prenda. Luego confirma el pedido con un resumen.
+
+Responde siempre en español. Mensajes cortos como en WhatsApp. Maximo 3-4 lineas por mensaje salvo que sea necesario mas.`;
 
 function nowTime(){
-  var d=new Date(); return d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();
+  var d=new Date();
+  return d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();
 }
 
-function addBotMsg(html){
+function updateClock(){
+  document.getElementById('clock').textContent = nowTime();
+}
+setInterval(updateClock, 10000);
+updateClock();
+
+function handleInput(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,80)+'px';
+  var v = el.value.trim();
+  document.getElementById('sendbtn').style.display = v ? 'flex' : 'none';
+  document.getElementById('micbtn').style.display = v ? 'none' : 'flex';
+}
+
+function handleKey(e){
+  if(e.key==='Enter' && !e.shiftKey){e.preventDefault();sendUser();}
+}
+
+function addBotMsg(text){
   var row = document.createElement('div');
   row.className = 'msg bot';
   var bub = document.createElement('div');
   bub.className = 'bubble';
-  // Handle *bold* markdown
-  var txt = html.replace(/\*(.*?)\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-  bub.innerHTML = '<div class="bubble-text">'+txt+'</div><div class="bubble-meta"><span class="bubble-time">'+nowTime()+'</span></div>';
+  var safe = text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<strong>$1</strong>');
+  bub.innerHTML='<div class="bubble-text">'+safe+'</div><div class="bubble-meta"><span class="bubble-time">'+nowTime()+'</span></div>';
   row.appendChild(bub);
   chat.appendChild(row);
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop=chat.scrollHeight;
 }
 
 function addUserMsg(txt){
-  var row = document.createElement('div');
-  row.className = 'msg user';
-  var bub = document.createElement('div');
-  bub.className = 'bubble';
-  bub.innerHTML = '<div class="bubble-text">'+txt+'</div><div class="bubble-meta"><span class="bubble-time">'+nowTime()+'</span><svg class="tick" viewBox="0 0 16 11"><path class="tick-blue" d="M1 6l4 4L9 4m3-3l-7 9" stroke="#53bdeb" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path class="tick-blue" d="M6 6l4 4" stroke="#53bdeb" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>';
+  var row=document.createElement('div');
+  row.className='msg user';
+  var bub=document.createElement('div');
+  bub.className='bubble';
+  var safe=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  bub.innerHTML='<div class="bubble-text">'+safe+'</div><div class="bubble-meta"><span class="bubble-time">'+nowTime()+'</span><svg width="15" height="10" viewBox="0 0 15 10"><path d="M1 5l3 3 5-7" stroke="#53bdeb" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 5l3 3 5-7" stroke="#53bdeb" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
   row.appendChild(bub);
   chat.appendChild(row);
-  chat.scrollTop = chat.scrollHeight;
-  // Show typing status
-  waStatus.textContent = 'en l\u00ednea';
+  chat.scrollTop=chat.scrollHeight;
 }
 
 function addTyping(){
-  var div = document.createElement('div');
-  div.className = 'typing-bubble';
-  div.id = 'typing';
-  div.innerHTML = '<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
+  var div=document.createElement('div');
+  div.className='typing-bubble';
+  div.id='typing-ind';
+  div.innerHTML='<div class="typing-dots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
   chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop=chat.scrollHeight;
   return div;
 }
 
-function clearOpts(){
-  var old = chat.querySelectorAll('.qr-wrap');
-  old.forEach(function(el){el.remove();});
-}
-
-function addOpts(opts){
-  var wrap = document.createElement('div');
-  wrap.className = 'qr-wrap';
-  opts.forEach(function(o){
-    var b = document.createElement('button');
-    b.className = 'qr-btn';
-    b.innerHTML = o;
-    b.addEventListener('click', function(){
-      clearOpts();
-      var plain = b.innerText || b.textContent;
-      addUserMsg(plain);
-      setTimeout(function(){ runFlow(plain, 300); }, 100);
+async function askAI(userMsg){
+  history.push({role:'user',content:userMsg});
+  var ty = addTyping();
+  waStatus.textContent='escribiendo\u2026';
+  busy=true;
+  try{
+    var res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:300,
+        system:SYSTEM,
+        messages:history
+      })
     });
-    wrap.appendChild(b);
-  });
-  chat.appendChild(wrap);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function runFlow(key, initialDelay){
-  var flow = getFlow(key);
-  var bots = []; var opts = null;
-  flow.forEach(function(s){ if(s.b) bots.push(s); if(s.o) opts=s.o; });
-  var t = initialDelay || 400;
-  bots.forEach(function(s, i){
-    var islast = (i===bots.length-1);
-    (function(txt, td, dd, last){
-      setTimeout(function(){
-        var ty = addTyping();
-        waStatus.textContent = 'escribiendo\u2026';
-        setTimeout(function(){
-          ty.remove();
-          waStatus.textContent = 'en l\u00ednea';
-          addBotMsg(txt);
-          if(last && opts) setTimeout(function(){ addOpts(opts); }, 200);
-        }, dd);
-      }, td);
-    })(s.b, t, s.d||900, islast);
-    t += (s.d||900) + 400;
-  });
-  if(!bots.length && opts) setTimeout(function(){ addOpts(opts); }, 300);
+    var data = await res.json();
+    ty.remove();
+    var reply = (data.content&&data.content[0]&&data.content[0].text) ? data.content[0].text : 'Un momento, ahora te ayudo!';
+    history.push({role:'assistant',content:reply});
+    addBotMsg(reply);
+  } catch(e){
+    ty.remove();
+    addBotMsg('Un momento, ahora te ayudo! \uD83E\uDD14');
+  }
+  waStatus.textContent='en l\u00ednea';
+  busy=false;
 }
 
 function sendUser(){
-  var v = cinput.value.trim();
+  if(busy) return;
+  var v=cinput.value.trim();
   if(!v) return;
-  cinput.value = '';
-  sendbtn.style.display = 'none';
-  micbtn.style.display = 'flex';
-  clearOpts();
+  cinput.value='';
+  cinput.style.height='auto';
+  document.getElementById('sendbtn').style.display='none';
+  document.getElementById('micbtn').style.display='flex';
   addUserMsg(v);
-  setTimeout(function(){ runFlow(v, 400); }, 100);
+  askAI(v);
 }
 
 function startDemo(){
-  document.getElementById('intro').style.display = 'none';
-  started = true;
-  // Business verified label
+  document.getElementById('intro').style.display='none';
+  var lbl=document.createElement('div');
+  lbl.className='biz-label';
+  lbl.textContent='Cuenta empresarial verificada';
+  chat.appendChild(lbl);
   setTimeout(function(){
-    var lbl = document.createElement('div');
-    lbl.className = 'biz-label';
-    lbl.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="#25d366" stroke-width="2" fill="none"/></svg> Cuenta empresarial verificada';
-    chat.appendChild(lbl);
-  }, 300);
-  // Start welcome flow
-  setTimeout(function(){ runFlow('__welcome__', 600); }, 500);
+    askAI('hola');
+  },600);
 }
-
-// Override getFlow for welcome
-var _getFlow = getFlow;
-getFlow = function(key){
-  if(key==='__welcome__') return WELCOME;
-  return _getFlow(key);
-};
-</script>
-
-<script>
-if(window.innerWidth <= 768){
-  document.getElementById('outer').style.cssText='display:block;width:100%;height:100vh;';
-}
-window.addEventListener('resize',function(){
-  if(window.innerWidth<=768){
-    document.getElementById('outer').style.cssText='display:block;width:100%;height:100vh;';
-  } else {
-    document.getElementById('outer').style.cssText='display:flex;flex-direction:column;align-items:center;gap:1.5rem;';
-  }
-});
 </script>
 </body>
 </html>

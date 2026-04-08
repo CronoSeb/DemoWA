@@ -156,7 +156,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 var chat = document.getElementById('chat');
 var cinput = document.getElementById('cinput');
 var waStatus = document.getElementById('wa-status');
-var history = [];
+var chatHistory = [];
 var busy = false;
 
 var API_KEY = '';
@@ -246,7 +246,7 @@ function addTyping(){
 }
 
 async function askAI(userMsg){
-  history.push({ role: 'user', content: userMsg });
+  chatHistory.push({ role: 'user', content: userMsg });
   const ty = addTyping();
   waStatus.textContent = 'escribiendo…';
   busy = true;
@@ -264,7 +264,7 @@ async function askAI(userMsg){
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
         system: SYSTEM,
-        messages: history
+        messages: chatHistory
       })
     });
 
@@ -280,7 +280,7 @@ async function askAI(userMsg){
       data?.content?.find(x => x.type === 'text')?.text ||
       'Un momento, ahora te ayudo!';
 
-    history.push({ role: 'assistant', content: reply });
+    chatHistory.push({ role: 'assistant', content: reply });
     addBotMsg(reply);
 
   } catch (e) {
